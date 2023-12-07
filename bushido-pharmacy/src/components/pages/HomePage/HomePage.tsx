@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import ProductView from '../../ProductView/ProductsView';
-import SideNav from '../../SideNav/SideNav';
 import styles from './HomePage.module.css';
+import SideNav from '../../SideNav/SideNav';
+
+import ProductsView from '../../ProductsView/ProductsView';
 import AboutApp from '../../AboutApp/AboutApp';
 import StatisticsView from '../../Statistics/StatisticsView';
 
@@ -21,7 +22,7 @@ const HomePage = () => {
           statsView={statsView}
           setStatsView={setStatsView}
         />
-        {productsView && <ProductView />}
+        {productsView && <ProductsView />}
         {aboutAppView && <AboutApp />}
         {statsView && <StatisticsView />}
       </div>

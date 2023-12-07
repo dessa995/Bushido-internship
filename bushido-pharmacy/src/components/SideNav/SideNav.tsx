@@ -39,7 +39,7 @@ const SideNav = ({
 
   return (
     <React.Fragment>
-      <ul>
+      <ul className={styles.optionsList}>
         <li
           onClick={activateProducts}
           className={productsView ? styles.listItemActive : styles.listItem}

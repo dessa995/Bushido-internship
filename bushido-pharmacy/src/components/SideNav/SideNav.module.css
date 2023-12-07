@@ -1,7 +1,19 @@
+.optionsList {
+  @apply flex flex-col gap-5 py-10 w-[25%] items-center justify-center rounded-xl border-2 border-cyan-400;
+}
+
 .listItem {
-  @apply text-cyan-600;
+  @apply text-gray-500 transition-all duration-300 text-2xl;
+}
+
+.listItem:hover {
+  @apply cursor-pointer text-cyan-800;
 }
 
 .listItemActive {
-  @apply text-red-700;
+  @apply border-b-2 border-cyan-400 text-cyan-500 font-bold transition-all duration-300 text-2xl;
+}
+
+.listItemActive:hover {
+  @apply cursor-pointer text-cyan-800 border-cyan-600;
 }

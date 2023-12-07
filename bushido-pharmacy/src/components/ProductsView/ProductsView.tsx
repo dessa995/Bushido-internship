@@ -4,7 +4,7 @@ import styles from './ProductView.module.css';
 import { IManufacturer, IProduct } from '../../services/interfaces';
 import { Link } from 'react-router-dom';
 
-const ProductView = () => {
+const ProductsView = () => {
   const [productsData, setProductsData] = useState<IProduct[]>([]);
 
   const date = new Date();
@@ -47,10 +47,16 @@ const ProductView = () => {
     const fetchLocalStorage = () => {
       const rawData = localStorage.getItem('products');
       if (rawData) {
-        const data = JSON.parse(rawData);
+        const data = JSON.parse(rawData, (key, value) => {
+          if (key === 'expiryDate' && typeof value === 'string') {
+            return new Date(value);
+          }
+          return value;
+        });
         setProductsData(data);
       } else {
         setProductsData(products);
+        localStorage.setItem('products', JSON.stringify(productsData));
       }
     };
 
@@ -59,22 +65,34 @@ const ProductView = () => {
 
   return (
     <React.Fragment>
-      <div className={styles.testDiv}>
+      <div className={styles.listWrapper}>
         <Link to="/newProduct" className={styles.addNewProductBtn}>
           Add New Product
         </Link>
         <ul>
-          {productsData.map((product) => {
+          {productsData.map((product, index) => {
             console.log(typeof product.expiryDate);
             return (
-              <li key={product.id} className={styles.productListItem}>
-                <div>
-                  <h3>{product?.name}</h3>
-                  <p>{product?.manufacturer?.name}</p>
-                  <p>{product?.price} &#x20AC;</p>
-                  <p>{`${product?.expiryDate?.getDay()}.${
-                    product?.expiryDate?.getMonth() + 1
-                  }.${product?.expiryDate?.getFullYear()}.`}</p>
+              <li
+                key={product.id}
+                className={`${styles.productListItem} ${
+                  index !== 0 && 'border-t-2 border-cyan-400'
+                }`}
+              >
+                <div className={styles.productInfoWrapper}>
+                  <h3 className={styles.productName}>{product?.name}</h3>
+                  <p className={styles.productManufacturer}>
+                    {product?.manufacturer?.name}
+                  </p>
+                  <p className={styles.productPrice}>
+                    Price: {product?.price} &#x20AC;
+                  </p>
+                  <p className={styles.productExpiryDate}>
+                    Expiry date:{' '}
+                    {`${product?.expiryDate.getDate()}.${
+                      product?.expiryDate?.getMonth() + 1
+                    }. ${product?.expiryDate?.getFullYear()}`}
+                  </p>
                 </div>
                 <Link to="/edit" className={styles.listBtn}>
                   Edit
@@ -88,4 +106,4 @@ const ProductView = () => {
   );
 };
 
-export default ProductView;
+export default ProductsView;
