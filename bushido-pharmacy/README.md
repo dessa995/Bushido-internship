@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# React-Typescript-Template
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+<img src="./src/assets/images/react-typescript-template.png"/>
+</div>
 
-## Available Scripts
+## Welcome to my React template
 
-In the project directory, you can run:
+This template is built with the following technologies:
 
-### `npm start`
+- Language: **TypeScript**
+- Styling: **TailwindCSS**
+- Testing: **Jest**
+- Linting: **ESLint**
+- Formatting: **Prettier**
+- Bundling: **Webpack**
+- Transpiling: **Babel**
+- Lint Staged: **Husky**
+- **React Refresh**
+- **Development** & **Production** configurations
+- Declarations for **png** and **svg** files
+  
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Using this template is very simple, follow the following instructions:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Fork the repository
+2. Create a new repository and select forked repository as template
 
-### `npm test`
+Or,
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository
 
-### `npm run build`
+```bash
+git clone https://github.com/divshekhar/react-typescript-template.git
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install the dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Start the development server
 
-### `npm run eject`
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Build for production
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run build
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Features
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [x] TypeScript for improved code quality and developer experience
+- [x] TailwindCSS for responsive styling
+- [x] Jest for unit testing
+- [x] ESLint for linting and maintaining code consistency
+- [x] Prettier for automatic code formatting
+- [x] Webpack for bundling and building the application
+- [x] Babel for transpiling modern JavaScript to older versions for better browser compatibility
+- [x] Husky for running lint-staged, which lints and fixes files before committing
+- [x] React Refresh for faster development experience
+- [x] Development & Production configurations for different environment settings
+- [x] Declarations for png and svg for improved developer experience
 
-## Learn More
+## Contributing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Please feel free to contribute to this project by submitting issues or pull requests.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
+This project is licensed under the ISC License.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Acknowledgements
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Thank you for using this template. I hope it helps you build your next project with ease.

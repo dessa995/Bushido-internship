@@ -1,0 +1,7 @@
+.listItem {
+  @apply text-cyan-600;
+}
+
+.listItemActive {
+  @apply text-red-700;
+}

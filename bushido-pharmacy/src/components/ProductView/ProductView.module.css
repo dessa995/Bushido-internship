@@ -13,3 +13,7 @@
 .listBtn:hover {
   @apply border-gray-600 text-gray-600;
 }
+
+.addNewProductBtn {
+  @apply rounded border-2 border-white p-[5px] transition-all duration-300;
+}
