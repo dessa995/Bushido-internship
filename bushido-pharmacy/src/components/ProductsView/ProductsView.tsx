@@ -1,67 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import styles from './ProductView.module.css';
 import { IManufacturer, IProduct } from '../../services/interfaces';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { DataContext } from '../../App';
 
 const ProductsView = () => {
-  const [productsData, setProductsData] = useState<IProduct[]>([]);
+  const { productsData, setProductsData, products } = useContext(DataContext);
 
-  const date = new Date();
+  const navigate = useNavigate();
 
-  const hemofarm: IManufacturer = {
-    id: '1',
-    name: 'Hemofarm',
+  const { setProductToEdit } = useContext(DataContext);
+
+  const handleEditClick = (product: IProduct) => {
+    setProductToEdit(product);
+    navigate('/edit');
   };
-
-  const bayerBayer: IManufacturer = {
-    id: '2',
-    name: 'Bayer Bayer',
-  };
-
-  const products = [
-    {
-      id: '1',
-      name: 'aspirin',
-      manufacturer: hemofarm,
-      price: 3,
-      expiryDate: date,
-    },
-    {
-      id: '2',
-      name: 'letizen',
-      manufacturer: hemofarm,
-      price: 5,
-      expiryDate: date,
-    },
-    {
-      id: '3',
-      name: 'kardiopirin',
-      manufacturer: bayerBayer,
-      price: 7,
-      expiryDate: date,
-    },
-  ];
 
   useEffect(() => {
     const fetchLocalStorage = () => {
       const rawData = localStorage.getItem('products');
-      if (rawData) {
+      if (rawData && rawData !== '[]') {
         const data = JSON.parse(rawData, (key, value) => {
           if (key === 'expiryDate' && typeof value === 'string') {
             return new Date(value);
           }
           return value;
         });
+        console.log(data);
+
         setProductsData(data);
       } else {
         setProductsData(products);
-        localStorage.setItem('products', JSON.stringify(productsData));
       }
     };
 
     fetchLocalStorage();
   }, []);
+
+  useEffect(() => {
+    console.log(productsData);
+    localStorage.setItem('products', JSON.stringify(productsData));
+  }, [productsData]);
 
   return (
     <React.Fragment>
@@ -70,8 +50,7 @@ const ProductsView = () => {
           Add New Product
         </Link>
         <ul>
-          {productsData.map((product, index) => {
-            console.log(typeof product.expiryDate);
+          {productsData.map((product: any, index: any) => {
             return (
               <li
                 key={product.id}
@@ -94,9 +73,14 @@ const ProductsView = () => {
                     }. ${product?.expiryDate?.getFullYear()}`}
                   </p>
                 </div>
-                <Link to="/edit" className={styles.listBtn}>
+                <button
+                  className={styles.listBtn}
+                  onClick={() => {
+                    handleEditClick(product);
+                  }}
+                >
                   Edit
-                </Link>
+                </button>
               </li>
             );
           })}
