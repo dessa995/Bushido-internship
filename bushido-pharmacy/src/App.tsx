@@ -19,60 +19,35 @@ export const manufacturersDataAtom = atomWithStorage('manufacturers', [
     name: 'Bayer Bayer',
     id: '2',
   },
+  {
+    name: 'Ivančić i sinovi',
+    id: '3',
+  },
+  {
+    name: 'Nije u Sistemu',
+    id: '99999',
+  },
 ]);
-
-// export const productDataAtom = atomWithStorage('products', [
-//   {
-//     id: '1',
-//     name: 'aspirin',
-//     manufacturer: { ...useAtom(manufacturersDataAtom)[0] },
-//     price: 3,
-//     expiryDate: new Date(2025, 1, 15),
-//   },
-//   {
-//     id: '2',
-//     name: 'letizen',
-//     manufacturer: { ...useAtom(manufacturersDataAtom)[0] },
-//     price: 5,
-//     expiryDate: new Date(2028, 8, 24),
-//   },
-//   {
-//     id: '3',
-//     name: 'kardiopirin',
-//     manufacturer: { ...useAtom(manufacturersDataAtom)[1] },
-//     price: 7,
-//     expiryDate: new Date(2022, 0, 31),
-//   },
-// ]);
 
 export const productDataAtom = atomWithStorage('products', [
   {
     id: uuidv4(),
     name: 'aspirin',
-    manufacturer: {
-      name: 'Hemofarm',
-      id: uuidv4(),
-    },
+    manufacturerDataId: '1',
     price: 3,
     expiryDate: new Date(2025, 1, 15),
   },
   {
     id: uuidv4(),
     name: 'letizen',
-    manufacturer: {
-      name: 'Hemofarm',
-      id: '1',
-    },
+    manufacturerDataId: '1',
     price: 5,
     expiryDate: new Date(2028, 8, 24),
   },
   {
     id: uuidv4(),
     name: 'kardiopirin',
-    manufacturer: {
-      name: 'Bayer Bayer',
-      id: '2',
-    },
+    manufacturerDataId: '2',
     price: 7,
     expiryDate: new Date(2022, 0, 31),
   },

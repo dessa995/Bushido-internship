@@ -1,7 +1,7 @@
 export interface IProduct {
   id: string;
   name: string;
-  manufacturer: IManufacturer;
+  manufacturerDataId: string;
   price: number;
   expiryDate: Date;
 }

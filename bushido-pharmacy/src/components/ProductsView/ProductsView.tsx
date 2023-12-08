@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import styles from './ProductView.module.css';
 import { IProduct } from '../../services/interfaces';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataContext, productDataAtom } from '../../App';
+import { DataContext, productDataAtom, manufacturersDataAtom } from '../../App';
 import { useAtom } from 'jotai';
 
 import { format } from 'date-fns';
@@ -12,6 +12,7 @@ const ProductsView = () => {
   const { setProductToEdit } = useContext(DataContext);
 
   const [productsData, setProductsData] = useAtom(productDataAtom);
+  const [manufacturersData] = useAtom(manufacturersDataAtom);
 
   const navigate = useNavigate();
   console.log('Products data', productsData);
@@ -39,6 +40,8 @@ const ProductsView = () => {
         </Link>
         <ul>
           {productsData.map((product: any, index: any) => {
+            // console.log(product, ' newProduct');
+
             return (
               <li
                 key={product.id}
@@ -49,7 +52,12 @@ const ProductsView = () => {
                 <div className={styles.productInfoWrapper}>
                   <h3 className={styles.productName}>{product?.name}</h3>
                   <p className={styles.productManufacturer}>
-                    {product?.manufacturer?.name}
+                    {
+                      manufacturersData.find(
+                        (manufacturer) =>
+                          manufacturer.id === product.manufacturerDataId
+                      )?.name
+                    }
                   </p>
                   <p className={styles.productPrice}>
                     Price: {product?.price} &#x20AC;

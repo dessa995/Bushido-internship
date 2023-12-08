@@ -5,7 +5,7 @@ import {
   manufacturersDataAtom,
   productDataAtom,
 } from '../../../App';
-import { IManufacturer, IProduct } from '../../../services/interfaces';
+import { IProduct } from '../../../services/interfaces';
 import { useAtom } from 'jotai';
 
 import styles from './EditProductPage.module.css';
@@ -13,9 +13,7 @@ import styles from './EditProductPage.module.css';
 const EditProductPage = () => {
   const { productToEdit, setProductToEdit } = useContext(DataContext);
   const [productsData, setProductsData] = useAtom(productDataAtom);
-  const [manufacturersData, setManufacturersData] = useAtom(
-    manufacturersDataAtom
-  );
+  const [manufacturersData] = useAtom(manufacturersDataAtom);
 
   const navigate = useNavigate();
 
@@ -29,18 +27,15 @@ const EditProductPage = () => {
 
   const handleManufacturerChange = (e: any) => {
     e.preventDefault();
-    const selectedManufacturerId = e.target.value;
-    if (selectedManufacturerId !== productToEdit?.manufacturer?.name) {
-      const selectedManufacturer = manufacturersData.find(
-        (manu: IManufacturer) => manu.id === selectedManufacturerId
-      );
 
+    const index = e.target.selectedIndex;
+    const el = e.target.childNodes[index];
+    const option = el.getAttribute('id');
+
+    if (option !== productToEdit?.manufacturerDataId) {
       setProductToEdit((prevProduct: IProduct) => ({
         ...prevProduct,
-        manufacturer: {
-          name: e.target.value,
-          id: e.target.id,
-        },
+        manufacturerDataId: option,
       }));
     }
   };
@@ -68,14 +63,14 @@ const EditProductPage = () => {
     ) as IProduct[];
 
     setProductsData([...newProducts, productToEdit]); // Spread the newProducts array and add the edited product
-    console.log('submitted');
+    // console.log('submitted');
     navigate('/');
   };
 
   useEffect(() => {
-    console.log('set items2', productsData);
+    // console.log('set items2', productsData);
     localStorage.setItem('products', JSON.stringify(productsData));
-    console.log(productsData, 'editor effect'); // Log the updated productsData when it changes
+    console.log(productToEdit, 'edited object'); // Log the updated productsData when it changes
   }, [productsData]);
 
   return (
@@ -103,11 +98,15 @@ const EditProductPage = () => {
               id="manufacturer"
               onChange={handleManufacturerChange}
             >
-              {manufacturersData.map((manu) => (
-                <option key={manu.id} value={manu.name} id={manu.id}>
-                  {manu.name}
-                </option>
-              ))}
+              {manufacturersData.map((manu) => {
+                console.log(manu);
+
+                return (
+                  <option key={manu.id} value={manu.name} id={manu.id}>
+                    {manu.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className={styles.inputWrapper}>

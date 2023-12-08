@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IProduct } from '../../../services/interfaces';
 import { productDataAtom, manufacturersDataAtom } from '../../../App';
 import { useAtom } from 'jotai';
+import { useNavigate } from 'react-router-dom';
 
 import styles from '../EditProduct/EditProductPage.module.css';
 
@@ -14,17 +15,14 @@ const NewProductPage = () => {
   const [manufatruerError, setManufatruerError] = useState(false);
   const [priceError, setPriceError] = useState(false);
 
-  const [manufacturersData, setManufacturersData] = useAtom(
-    manufacturersDataAtom
-  );
+  const navigate = useNavigate();
+
+  const [manufacturersData] = useAtom(manufacturersDataAtom);
 
   const [newProduct, setNewProduct] = useState<IProduct>({
     id: '',
     name: '',
-    manufacturer: {
-      name: '',
-      id: '',
-    },
+    manufacturerDataId: '',
     price: 0,
     expiryDate: new Date(),
   });
@@ -41,12 +39,15 @@ const NewProductPage = () => {
   const handleManufacturerChange = (e: any) => {
     e.preventDefault();
 
+    const index = e.target.selectedIndex;
+    const el = e.target.childNodes[index];
+    const option = el.getAttribute('id');
+
+    console.log(option);
+
     setNewProduct((prevProduct: IProduct) => ({
       ...prevProduct,
-      manufacturer: {
-        name: e.target.value,
-        id: e.target.id,
-      },
+      manufacturerDataId: option,
     }));
   };
 
@@ -72,6 +73,8 @@ const NewProductPage = () => {
     const newArray = productsData;
     newArray.push(newProduct);
     setProductsData(newArray);
+
+    navigate('/');
   };
 
   return (
@@ -121,7 +124,7 @@ const NewProductPage = () => {
               value={newProduct?.price}
               onChange={handlePriceChange}
             />
-            <span>&#x20AC;</span>
+            <span className={styles.currency}>&#x20AC;</span>
           </div>
           <div className={styles.inputWrapper}>
             <input
