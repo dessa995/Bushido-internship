@@ -1,5 +1,5 @@
 .optionsList {
-  @apply flex flex-col gap-5 py-10 w-[25%] items-center justify-center rounded-xl border-2 border-cyan-400;
+  @apply flex flex-col gap-5 py-10 fixed w-[18%] min-h-[95vh] items-center justify-center rounded-xl border-2 border-cyan-400;
 }
 
 .listItem {

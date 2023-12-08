@@ -14,12 +14,24 @@
   @apply text-[18px] text-gray-400;
 }
 
+.buttonsWrapper {
+  @apply flex flex-col gap-2 justify-center;
+}
+
 .listBtn {
-  @apply flex items-center rounded border-2 border-transparent bg-cyan-500 text-white py-2 px-8 tracking-wider transition-all duration-300 h-12 my-auto;
+  @apply flex items-center justify-center rounded border-2 border-transparent bg-cyan-500 text-white py-2 px-8 tracking-wider transition-all duration-300 h-12;
 }
 
 .listBtn:hover {
   @apply border-cyan-400 bg-transparent text-gray-600;
+}
+
+.deleteBtn {
+  @apply flex items-center justify-center rounded border-2 border-transparent bg-red-600  text-white py-2 px-8 tracking-wider transition-all duration-300 h-12;
+}
+
+.deleteBtn:hover {
+  @apply border-red-500 text-gray-600 bg-transparent;
 }
 
 .addNewProductBtn {

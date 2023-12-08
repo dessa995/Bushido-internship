@@ -16,12 +16,14 @@
   "author": "Divyanshu Shekhar",
   "license": "ISC",
   "dependencies": {
+    "@types/uuid": "^9.0.7",
     "axios": "^1.5.0",
     "date-fns": "^2.30.0",
     "jotai": "^2.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.1"
+    "react-router-dom": "^6.20.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.22.20",

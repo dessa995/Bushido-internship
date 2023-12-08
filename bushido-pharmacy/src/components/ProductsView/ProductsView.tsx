@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import styles from './ProductView.module.css';
 import { IProduct } from '../../services/interfaces';
@@ -10,9 +10,8 @@ import { format } from 'date-fns';
 
 const ProductsView = () => {
   const { setProductToEdit } = useContext(DataContext);
-  // const { setProductsData } = useContext(DataContext);
 
-  const [productsData] = useAtom(productDataAtom);
+  const [productsData, setProductsData] = useAtom(productDataAtom);
 
   const navigate = useNavigate();
   console.log('Products data', productsData);
@@ -22,26 +21,15 @@ const ProductsView = () => {
     navigate('/edit');
   };
 
-  // const fetchLocalStorage = () => {
-  //   const rawData = localStorage.getItem('products');
-  //   if (rawData && rawData !== '[]') {
-  //     const data = JSON.parse(rawData, (key, value) => {
-  //       if (key === 'expiryDate' && typeof value === 'string') {
-  //         return new Date(value);
-  //       }
-  //       return value;
-  //     });
-  //     console.log(data);
+  const handleDelete = (productToDelete: IProduct) => {
+    const newArray = productsData.filter(
+      (product: IProduct) => product.id !== productToDelete.id
+    );
 
-  //     setProductsData(data);
-  //   } else {
-  //     setProductsData(products);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchLocalStorage();
-  // }, []);
+    // Now newArray contains the filtered array
+    console.log(newArray);
+    setProductsData(newArray);
+  };
 
   return (
     <React.Fragment>
@@ -71,14 +59,24 @@ const ProductsView = () => {
                     {format(new Date(product.expiryDate), 'dd.MM.yyyy')}
                   </p>
                 </div>
-                <button
-                  className={styles.listBtn}
-                  onClick={() => {
-                    handleEditClick(product);
-                  }}
-                >
-                  Edit
-                </button>
+                <div className={styles.buttonsWrapper}>
+                  <button
+                    className={styles.listBtn}
+                    onClick={() => {
+                      handleEditClick(product);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className={styles.deleteBtn}
+                    onClick={() => {
+                      handleDelete(product);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </li>
             );
           })}

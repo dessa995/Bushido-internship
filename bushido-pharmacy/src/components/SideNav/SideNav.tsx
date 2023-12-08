@@ -39,26 +39,28 @@ const SideNav = ({
 
   return (
     <React.Fragment>
-      <ul className={styles.optionsList}>
-        <li
-          onClick={activateProducts}
-          className={productsView ? styles.listItemActive : styles.listItem}
-        >
-          Products
-        </li>
-        <li
-          onClick={activateAboutApp}
-          className={aboutAppView ? styles.listItemActive : styles.listItem}
-        >
-          About App
-        </li>
-        <li
-          onClick={activateStats}
-          className={statsView ? styles.listItemActive : styles.listItem}
-        >
-          Statistics
-        </li>
-      </ul>
+      <div className="relative w-[25%]">
+        <ul className={styles.optionsList}>
+          <li
+            onClick={activateProducts}
+            className={productsView ? styles.listItemActive : styles.listItem}
+          >
+            Products
+          </li>
+          <li
+            onClick={activateAboutApp}
+            className={aboutAppView ? styles.listItemActive : styles.listItem}
+          >
+            About App
+          </li>
+          <li
+            onClick={activateStats}
+            className={statsView ? styles.listItemActive : styles.listItem}
+          >
+            Statistics
+          </li>
+        </ul>
+      </div>
     </React.Fragment>
   );
 };

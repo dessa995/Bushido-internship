@@ -1,0 +1,11 @@
+.aboutWrapper {
+  @apply flex flex-col justify-center items-center w-[70%] h-[95vh] p-20 text-xl border-2 border-cyan-400 rounded-xl;
+}
+
+.aboutHeading {
+  @apply text-3xl font-bold;
+}
+
+.aboutVersion {
+  @apply text-gray-600;
+}

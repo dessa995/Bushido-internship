@@ -1,12 +1,23 @@
 import React, { useContext, useEffect } from 'react';
-import { DataContext, productDataAtom } from '../../../App';
-import { IProduct } from '../../../services/interfaces';
+import { useNavigate } from 'react-router-dom';
+import {
+  DataContext,
+  manufacturersDataAtom,
+  productDataAtom,
+} from '../../../App';
+import { IManufacturer, IProduct } from '../../../services/interfaces';
 import { useAtom } from 'jotai';
-// import { v4 as uuidv4 } from 'uuid';
+
+import styles from './EditProductPage.module.css';
 
 const EditProductPage = () => {
   const { productToEdit, setProductToEdit } = useContext(DataContext);
   const [productsData, setProductsData] = useAtom(productDataAtom);
+  const [manufacturersData, setManufacturersData] = useAtom(
+    manufacturersDataAtom
+  );
+
+  const navigate = useNavigate();
 
   const handleNameChange = (e: any) => {
     e.preventDefault();
@@ -18,13 +29,17 @@ const EditProductPage = () => {
 
   const handleManufacturerChange = (e: any) => {
     e.preventDefault();
-    if (e.target.value !== productToEdit.manufacturer.name) {
+    const selectedManufacturerId = e.target.value;
+    if (selectedManufacturerId !== productToEdit?.manufacturer?.name) {
+      const selectedManufacturer = manufacturersData.find(
+        (manu: IManufacturer) => manu.id === selectedManufacturerId
+      );
+
       setProductToEdit((prevProduct: IProduct) => ({
         ...prevProduct,
         manufacturer: {
-          ...prevProduct.manufacturer,
           name: e.target.value,
-          // id: String(uuidv4()),
+          id: e.target.id,
         },
       }));
     }
@@ -42,7 +57,7 @@ const EditProductPage = () => {
     e.preventDefault();
     setProductToEdit((prevProduct: IProduct) => ({
       ...prevProduct,
-      expiryDate: e.target.value,
+      expiryDate: new Date(e.target.value), // Convert the string to a Date object
     }));
   };
 
@@ -50,10 +65,11 @@ const EditProductPage = () => {
     e.preventDefault();
     const newProducts = productsData.filter(
       (product: IProduct) => product.id !== productToEdit.id
-    );
-    newProducts.push(productToEdit);
-    setProductsData(newProducts);
-    console.log('submited');
+    ) as IProduct[];
+
+    setProductsData([...newProducts, productToEdit]); // Spread the newProducts array and add the edited product
+    console.log('submitted');
+    navigate('/');
   };
 
   useEffect(() => {
@@ -64,49 +80,65 @@ const EditProductPage = () => {
 
   return (
     <React.Fragment>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Product Name: </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={productToEdit?.name}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="manufacturer">Manufacturer: </label>
-          <input
-            type="text"
-            name="manufacturer"
-            id="manufacturer"
-            value={productToEdit?.manufacturer?.name}
-            onChange={handleManufacturerChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="price">Price</label>
-          <input
-            type="number"
-            name="price"
-            id="price"
-            value={productToEdit?.price}
-            onChange={handlePriceChange}
-          />
-          <span>&#x20AC;</span>
-        </div>
-        <div>
-          <input
-            type="date"
-            name="expiryDate"
-            id="expiryDate"
-            value={productToEdit?.expiryDate}
-            onChange={handleDateChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+      <div className="flex h-screen w-full justify-center items-center max-w-[2000px]">
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="name" className={styles.label}>
+              Product Name:{' '}
+            </label>
+            <input
+              className={styles.textInput}
+              type="text"
+              name="name"
+              id="name"
+              value={productToEdit?.name}
+              onChange={handleNameChange}
+            />
+          </div>
+          {/* make a separate component for select */}
+          <div className={styles.selectWrapper}>
+            <select
+              className={styles.select}
+              name="manufacturer"
+              id="manufacturer"
+              onChange={handleManufacturerChange}
+            >
+              {manufacturersData.map((manu) => (
+                <option key={manu.id} value={manu.name} id={manu.id}>
+                  {manu.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.inputWrapper}>
+            <label className={styles.label} htmlFor="price">
+              Price
+            </label>
+            <input
+              className={styles.numberInput}
+              type="number"
+              name="price"
+              id="price"
+              value={productToEdit?.price}
+              onChange={handlePriceChange}
+            />
+            <span className={styles.currency}>&#x20AC;</span>
+          </div>
+          <div className={styles.inputWrapper}>
+            <input
+              className={styles.dateInput}
+              type="date"
+              name="expiryDate"
+              id="expiryDate"
+              value={productToEdit?.expiryDate}
+              onChange={handleDateChange}
+            />
+          </div>
+          <button className={styles.submitBtn} type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
     </React.Fragment>
   );
 };
