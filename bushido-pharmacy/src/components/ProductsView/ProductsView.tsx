@@ -1,47 +1,47 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import styles from './ProductView.module.css';
-import { IManufacturer, IProduct } from '../../services/interfaces';
+import { IProduct } from '../../services/interfaces';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataContext } from '../../App';
+import { DataContext, productDataAtom } from '../../App';
+import { useAtom } from 'jotai';
+
+import { format } from 'date-fns';
 
 const ProductsView = () => {
-  const { productsData, setProductsData, products } = useContext(DataContext);
+  const { setProductToEdit } = useContext(DataContext);
+  // const { setProductsData } = useContext(DataContext);
+
+  const [productsData] = useAtom(productDataAtom);
 
   const navigate = useNavigate();
-
-  const { setProductToEdit } = useContext(DataContext);
+  console.log('Products data', productsData);
 
   const handleEditClick = (product: IProduct) => {
     setProductToEdit(product);
     navigate('/edit');
   };
 
-  useEffect(() => {
-    const fetchLocalStorage = () => {
-      const rawData = localStorage.getItem('products');
-      if (rawData && rawData !== '[]') {
-        const data = JSON.parse(rawData, (key, value) => {
-          if (key === 'expiryDate' && typeof value === 'string') {
-            return new Date(value);
-          }
-          return value;
-        });
-        console.log(data);
+  // const fetchLocalStorage = () => {
+  //   const rawData = localStorage.getItem('products');
+  //   if (rawData && rawData !== '[]') {
+  //     const data = JSON.parse(rawData, (key, value) => {
+  //       if (key === 'expiryDate' && typeof value === 'string') {
+  //         return new Date(value);
+  //       }
+  //       return value;
+  //     });
+  //     console.log(data);
 
-        setProductsData(data);
-      } else {
-        setProductsData(products);
-      }
-    };
+  //     setProductsData(data);
+  //   } else {
+  //     setProductsData(products);
+  //   }
+  // };
 
-    fetchLocalStorage();
-  }, []);
-
-  useEffect(() => {
-    console.log(productsData);
-    localStorage.setItem('products', JSON.stringify(productsData));
-  }, [productsData]);
+  // useEffect(() => {
+  //   fetchLocalStorage();
+  // }, []);
 
   return (
     <React.Fragment>
@@ -68,9 +68,7 @@ const ProductsView = () => {
                   </p>
                   <p className={styles.productExpiryDate}>
                     Expiry date:{' '}
-                    {`${product?.expiryDate.getDate()}.${
-                      product?.expiryDate?.getMonth() + 1
-                    }. ${product?.expiryDate?.getFullYear()}`}
+                    {format(new Date(product.expiryDate), 'dd.MM.yyyy')}
                   </p>
                 </div>
                 <button

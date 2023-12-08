@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import { DataContext } from '../../../App';
+import { DataContext, productDataAtom } from '../../../App';
 import { IProduct } from '../../../services/interfaces';
+import { useAtom } from 'jotai';
 // import { v4 as uuidv4 } from 'uuid';
 
 const EditProductPage = () => {
-  const { productToEdit, setProductToEdit, productsData, setProductsData } =
-    useContext(DataContext);
-  // console.log(productToEdit);
+  const { productToEdit, setProductToEdit } = useContext(DataContext);
+  const [productsData, setProductsData] = useAtom(productDataAtom);
 
   const handleNameChange = (e: any) => {
     e.preventDefault();
@@ -57,6 +57,7 @@ const EditProductPage = () => {
   };
 
   useEffect(() => {
+    console.log('set items2', productsData);
     localStorage.setItem('products', JSON.stringify(productsData));
     console.log(productsData, 'editor effect'); // Log the updated productsData when it changes
   }, [productsData]);
