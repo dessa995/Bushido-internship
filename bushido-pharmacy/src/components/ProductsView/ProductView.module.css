@@ -3,7 +3,13 @@
 }
 
 .productListItem {
-  @apply flex justify-between my-5;
+  @apply flex flex-row justify-between my-5;
+}
+
+@media only screen and (max-width: 805) {
+  .productListItem {
+    @apply flex-col;
+  }
 }
 
 .productName {

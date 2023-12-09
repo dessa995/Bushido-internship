@@ -1,0 +1,7 @@
+.chartsWrapper {
+  @apply flex flex-col gap-4 justify-center items-center w-[70%] h-[95vh] p-20 text-xl border-2 border-cyan-400 rounded-xl;
+}
+
+.chartWrapper {
+  @apply w-full mb-[20px];
+}
