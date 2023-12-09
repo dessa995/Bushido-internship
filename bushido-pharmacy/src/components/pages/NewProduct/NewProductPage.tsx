@@ -11,13 +11,13 @@ import { v4 as uuidv4 } from 'uuid';
 const NewProductPage = () => {
   const [productsData, setProductsData] = useAtom(productDataAtom);
 
-  const [nameError, setNameError] = useState(false);
-  const [manufatruerError, setManufatruerError] = useState(false);
-  const [priceError, setPriceError] = useState(false);
-
   const navigate = useNavigate();
 
   const [manufacturersData] = useAtom(manufacturersDataAtom);
+
+  const [nameError, setNameError] = useState(false);
+  const [manufatruerError, setManufatruerError] = useState(false);
+  const [priceError, setPriceError] = useState(false);
 
   const [newProduct, setNewProduct] = useState<IProduct>({
     id: '',
@@ -27,17 +27,29 @@ const NewProductPage = () => {
     expiryDate: new Date(),
   });
 
+  const [errors, setErrors] = useState({
+    name: '',
+    manufacturer: '',
+    price: '',
+  });
+
   const handleNameChange = (e: any) => {
     e.preventDefault();
+    setNameError(false);
     setNewProduct((prevProduct: IProduct) => ({
       ...prevProduct,
       id: uuidv4(),
       name: e.target.value,
     }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      name: e.target.value.trim() === '' ? 'Name is required' : '',
+    }));
   };
 
   const handleManufacturerChange = (e: any) => {
     e.preventDefault();
+    setManufatruerError(false);
 
     const index = e.target.selectedIndex;
     const el = e.target.childNodes[index];
@@ -49,13 +61,22 @@ const NewProductPage = () => {
       ...prevProduct,
       manufacturerDataId: option,
     }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      manufacturer: option === '' ? 'Please select a manufacturer' : '',
+    }));
   };
 
   const handlePriceChange = (e: any) => {
     e.preventDefault();
+    setPriceError(false);
     setNewProduct((prevProduct: IProduct) => ({
       ...prevProduct,
       price: e.target.value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      price: e.target.value <= 0 ? 'Invalid price' : '',
     }));
   };
 
@@ -70,11 +91,43 @@ const NewProductPage = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const newArray = productsData;
-    newArray.push(newProduct);
-    setProductsData(newArray);
 
-    navigate('/');
+    const isFormValid = validateForm();
+
+    if (isFormValid) {
+      const newArray = productsData;
+      newArray.push(newProduct);
+      setProductsData(newArray);
+      navigate('/');
+    } else {
+      console.log(newProduct);
+    }
+  };
+
+  const validateForm = () => {
+    const nameError = newProduct.name.trim() === '' ? 'Name is required' : '';
+    if (nameError.length > 0) {
+      setNameError(true);
+    }
+    const manufacturerError =
+      newProduct.manufacturerDataId === ''
+        ? 'Please select a manufacturer'
+        : '';
+    if (manufacturerError.length > 0) {
+      setManufatruerError(true);
+    }
+    const priceError = newProduct.price <= 0 ? 'Invalid price' : '';
+    if (priceError.length > 0) {
+      setPriceError(true);
+    }
+
+    setErrors({
+      name: nameError,
+      manufacturer: manufacturerError,
+      price: priceError,
+    });
+
+    return nameError === '' && manufacturerError === '' && priceError === '';
   };
 
   return (
@@ -86,17 +139,22 @@ const NewProductPage = () => {
               Product Name:{' '}
             </label>
             <input
-              className={styles.textInput}
+              className={nameError ? styles.textInputError : styles.textInput}
               type="text"
               name="name"
               id="name"
               value={newProduct?.name}
               onChange={handleNameChange}
             />
+            {nameError && (
+              <span className={`${styles.errorMsg} left-[35%]`}>
+                Invalid Product Name
+              </span>
+            )}
           </div>
           <div className={styles.selectWrapper}>
             <select
-              className={styles.select}
+              className={manufatruerError ? styles.selectError : styles.select}
               name="manufacturer"
               id="manufacturer"
               onChange={handleManufacturerChange}
@@ -111,20 +169,33 @@ const NewProductPage = () => {
                 </option>
               ))}
             </select>
+            {manufatruerError && (
+              <span className={`${styles.errorMsg} left-[40%]`}>
+                Please select Manufacturer
+              </span>
+            )}
           </div>
           <div className={styles.inputWrapper}>
             <label htmlFor="price" className={styles.label}>
               Price
             </label>
             <input
-              className={styles.numberInput}
+              className={
+                priceError ? styles.numberInputError : styles.numberInput
+              }
               type="number"
               name="price"
               id="price"
+              min={0}
               value={newProduct?.price}
               onChange={handlePriceChange}
             />
             <span className={styles.currency}>&#x20AC;</span>
+            {priceError && (
+              <span className={`${styles.errorMsg} left-[35%]`}>
+                Invalid Product Price
+              </span>
+            )}
           </div>
           <div className={styles.inputWrapper}>
             <input

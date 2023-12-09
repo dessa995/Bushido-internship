@@ -1,0 +1,19 @@
+.contentWrapper {
+  @apply flex justify-center items-center h-screen w-full;
+}
+
+.contentBox {
+  @apply flex flex-col justify-center items-center h-[90vh] w-[80%] rounded-xl border-2 border-cyan-400;
+}
+
+.contentHeading {
+  @apply text-4xl text-cyan-800;
+}
+
+.linkBack {
+  @apply text-xl text-gray-600 transition-all duration-300;
+}
+
+.linkBack:hover {
+  @apply text-cyan-400;
+}

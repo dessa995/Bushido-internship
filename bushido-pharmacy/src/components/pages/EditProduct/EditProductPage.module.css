@@ -3,7 +3,7 @@
 }
 
 .inputWrapper {
-  @apply flex gap-2 my-2;
+  @apply flex gap-2 my-6 relative;
 }
 
 .label {
@@ -19,7 +19,7 @@
 }
 
 .selectWrapper {
-  @apply flex justify-center items-center my-2 w-[95%];
+  @apply flex relative justify-center items-center my-2 w-[95%];
 }
 
 .select {
@@ -32,6 +32,10 @@
 
 .numberInput {
   @apply text-2xl rounded-xl border-2 border-cyan-400 p-2 outline-none text-center;
+}
+
+.numberInputError {
+  @apply text-2xl rounded-xl border-2 border-red-600 p-2 outline-none text-center;
 }
 
 .currency {
@@ -48,4 +52,8 @@
 
 .submitBtn:hover {
   @apply bg-transparent text-gray-600 border-cyan-400;
+}
+
+.errorMsg {
+  @apply absolute -top-[3.5vh] flex justify-center items-center text-red-600 text-center font-thin;
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   DataContext,
@@ -17,11 +17,25 @@ const EditProductPage = () => {
 
   const navigate = useNavigate();
 
+  const [nameError, setNameError] = useState(false);
+  const [manufatruerError, setManufatruerError] = useState(false);
+  const [priceError, setPriceError] = useState(false);
+
+  const [errors, setErrors] = useState({
+    name: '',
+    manufacturer: '',
+    price: '',
+  });
+
   const handleNameChange = (e: any) => {
     e.preventDefault();
     setProductToEdit((prevProduct: IProduct) => ({
       ...prevProduct,
       name: e.target.value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      name: e.target.value.trim() === '' ? 'Name is required' : '',
     }));
   };
 
@@ -38,6 +52,10 @@ const EditProductPage = () => {
         manufacturerDataId: option,
       }));
     }
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      manufacturer: option === '' ? 'Please select a manufacturer' : '',
+    }));
   };
 
   const handlePriceChange = (e: any) => {
@@ -45,6 +63,10 @@ const EditProductPage = () => {
     setProductToEdit((prevProduct: IProduct) => ({
       ...prevProduct,
       price: e.target.value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      price: e.target.value <= 0 ? 'Invalid price' : '',
     }));
   };
 
@@ -62,16 +84,40 @@ const EditProductPage = () => {
       (product: IProduct) => product.id !== productToEdit.id
     ) as IProduct[];
 
-    setProductsData([...newProducts, productToEdit]); // Spread the newProducts array and add the edited product
-    // console.log('submitted');
-    navigate('/');
+    const isFormValid = validateForm();
+
+    if (isFormValid) {
+      setProductsData([...newProducts, productToEdit]); // Spread the newProducts array and add the edited product
+      navigate('/');
+    }
   };
 
-  useEffect(() => {
-    // console.log('set items2', productsData);
-    localStorage.setItem('products', JSON.stringify(productsData));
-    console.log(productToEdit, 'edited object'); // Log the updated productsData when it changes
-  }, [productsData]);
+  const validateForm = () => {
+    const nameError =
+      productToEdit.name.trim() === '' ? 'Name is required' : '';
+    if (nameError.length > 0) {
+      setNameError(true);
+    }
+    const manufacturerError =
+      productToEdit.manufacturerDataId === ''
+        ? 'Please select a manufacturer'
+        : '';
+    if (manufacturerError.length > 0) {
+      setManufatruerError(true);
+    }
+    const priceError = productToEdit.price <= 0 ? 'Invalid price' : '';
+    if (priceError.length > 0) {
+      setPriceError(true);
+    }
+
+    setErrors({
+      name: nameError,
+      manufacturer: manufacturerError,
+      price: priceError,
+    });
+
+    return nameError === '' && manufacturerError === '' && priceError === '';
+  };
 
   return (
     <React.Fragment>
@@ -82,46 +128,62 @@ const EditProductPage = () => {
               Product Name:{' '}
             </label>
             <input
-              className={styles.textInput}
+              className={nameError ? styles.textInputError : styles.textInput}
               type="text"
               name="name"
               id="name"
               value={productToEdit?.name}
               onChange={handleNameChange}
             />
+            {nameError && (
+              <span className={`${styles.errorMsg} left-[35%]`}>
+                Invalid Product Name
+              </span>
+            )}
           </div>
-          {/* make a separate component for select */}
           <div className={styles.selectWrapper}>
             <select
-              className={styles.select}
+              className={manufatruerError ? styles.selectError : styles.select}
               name="manufacturer"
               id="manufacturer"
               onChange={handleManufacturerChange}
+              defaultValue={productToEdit?.manufacturerDataId}
             >
               {manufacturersData.map((manu) => {
-                console.log(manu);
-
                 return (
-                  <option key={manu.id} value={manu.name} id={manu.id}>
+                  <option key={manu.id} value={manu.id} id={manu.id}>
                     {manu.name}
                   </option>
                 );
               })}
             </select>
+            {manufatruerError && (
+              <span className={`${styles.errorMsg} left-[40%]`}>
+                Please select Manufacturer
+              </span>
+            )}
           </div>
           <div className={styles.inputWrapper}>
             <label className={styles.label} htmlFor="price">
               Price
             </label>
             <input
-              className={styles.numberInput}
+              className={
+                priceError ? styles.numberInputError : styles.numberInput
+              }
               type="number"
               name="price"
               id="price"
+              min={0}
               value={productToEdit?.price}
               onChange={handlePriceChange}
             />
             <span className={styles.currency}>&#x20AC;</span>
+            {priceError && (
+              <span className={`${styles.errorMsg} left-[35%]`}>
+                Invalid Product Price
+              </span>
+            )}
           </div>
           <div className={styles.inputWrapper}>
             <input
