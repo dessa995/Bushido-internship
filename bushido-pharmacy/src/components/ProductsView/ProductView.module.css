@@ -6,12 +6,6 @@
   @apply flex flex-row justify-between my-5;
 }
 
-@media only screen and (max-width: 805) {
-  .productListItem {
-    @apply flex-col;
-  }
-}
-
 .productName {
   @apply capitalize font-bold text-2xl pt-2;
 }
@@ -41,9 +35,26 @@
 }
 
 .addNewProductBtn {
-  @apply rounded border-2 border-transparent bg-cyan-500 p-[5px] text-white font-bold text-2xl transition-all duration-300 text-center;
+  @apply rounded border-2 border-transparent bg-cyan-700 p-[5px] text-white font-bold text-2xl transition-all duration-300 text-center;
 }
 
 .addNewProductBtn:hover {
   @apply bg-transparent border-cyan-500 text-gray-600;
+}
+
+/*-------------------------------------------------------------------------
+---------------------------RESPONSIVE--------------------------------------
+---------------------------------------------------------------------------*/
+@media only screen and (max-width: 805px) {
+  .listWrapper {
+    @apply px-5;
+  }
+
+  .productListItem {
+    @apply flex-col;
+  }
+
+  .productInfoWrapper {
+    @apply flex flex-col items-center;
+  }
 }

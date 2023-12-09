@@ -1,3 +1,9 @@
 .pageWrapper {
   @apply flex p-5 w-[80%] justify-between mx-auto;
 }
+
+@media screen and (max-width: 805px) {
+  .pageWrapper {
+    @apply w-full;
+  }
+}

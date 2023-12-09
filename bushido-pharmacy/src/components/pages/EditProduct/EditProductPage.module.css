@@ -57,3 +57,31 @@
 .errorMsg {
   @apply absolute -top-[3.5vh] flex justify-center items-center text-red-600 text-center font-thin;
 }
+
+/*-------------------------------------------------------------------------
+---------------------------RESPONSIVE--------------------------------------
+---------------------------------------------------------------------------*/
+
+@media screen and (max-width: 805px) {
+  .inputWrapper {
+    @apply flex-col w-[95%] items-center;
+  }
+
+  .textInput {
+    @apply w-full text-lg;
+  }
+
+  .select {
+    @apply text-lg;
+  }
+
+  .numberInput {
+    @apply w-full text-lg;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .select {
+    @apply text-sm;
+  }
+}

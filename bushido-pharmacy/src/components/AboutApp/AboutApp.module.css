@@ -1,11 +1,35 @@
 .aboutWrapper {
-  @apply flex flex-col justify-center items-center w-[70%] h-[95vh] p-20 text-xl border-2 border-cyan-400 rounded-xl;
+  @apply flex flex-col justify-center items-center w-[70%] h-[95vh] p-20 border-2 border-cyan-400 rounded-xl;
 }
 
 .aboutHeading {
-  @apply text-3xl font-bold;
+  @apply text-3xl font-bold text-center;
 }
 
 .aboutVersion {
-  @apply text-gray-600;
+  @apply text-gray-600 text-xl;
+}
+
+@media screen and (max-width: 805px) {
+  .aboutWrapper {
+    @apply px-5;
+  }
+
+  .aboutHeading {
+    @apply text-xl;
+  }
+
+  .aboutVersion {
+    @apply text-lg;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .aboutHeading {
+    @apply text-lg;
+  }
+
+  .aboutVersion {
+    @apply text-sm;
+  }
 }

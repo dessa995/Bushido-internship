@@ -17,3 +17,31 @@
 .listItemActive:hover {
   @apply cursor-pointer text-cyan-800 border-cyan-600;
 }
+
+/*-------------------------------------------------------------------------
+---------------------------RESPONSIVE--------------------------------------
+---------------------------------------------------------------------------*/
+
+@media screen and (max-width: 805px) {
+  .optionsList {
+    @apply w-[25%];
+  }
+
+  .listItem {
+    @apply text-lg;
+  }
+
+  .listItemActive {
+    @apply text-lg;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .listItem {
+    @apply text-sm;
+  }
+
+  .listItemActive {
+    @apply text-sm;
+  }
+}
