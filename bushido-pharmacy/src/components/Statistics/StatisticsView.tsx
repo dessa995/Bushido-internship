@@ -26,19 +26,19 @@ const StatisticsView = () => {
 
   const manufacturerData = [
     {
-      name: 'hemofarm',
+      name: 'Hemofarm',
       value: 0,
     },
     {
-      name: 'bayer',
+      name: 'Bayer Bayer',
       value: 0,
     },
     {
-      name: 'ivancic',
+      name: 'Ivancic i Sinovi',
       value: 0,
     },
     {
-      name: 'noData',
+      name: 'Not in system',
       value: 0,
     },
   ];
@@ -47,19 +47,21 @@ const StatisticsView = () => {
     productData.forEach((product) => {
       if (product.manufacturerDataId === '1') {
         (
-          manufacturerData.find((manu) => manu.name === 'hemofarm') as any
+          manufacturerData.find((manu) => manu.name === 'Hemofarm') as any
         ).value += 1;
       } else if (product.manufacturerDataId === '2') {
         (
-          manufacturerData.find((manu) => manu.name === 'bayer') as any
+          manufacturerData.find((manu) => manu.name === 'Bayer Bayer') as any
         ).value += 1;
       } else if (product.manufacturerDataId === '3') {
         (
-          manufacturerData.find((manu) => manu.name === 'ivancic') as any
+          manufacturerData.find(
+            (manu) => manu.name === 'Ivancic i Sinovi'
+          ) as any
         ).value += 1;
       } else {
         (
-          manufacturerData.find((manu) => manu.name === 'noData') as any
+          manufacturerData.find((manu) => manu.name === 'Not in system') as any
         ).value += 1;
       }
     });
@@ -69,16 +71,20 @@ const StatisticsView = () => {
 
   manufacturerCounter();
 
-  const sortedProductDataExpensive = [...productData]
-    .sort((a, b) => a.price - b.price)
-    .slice(0.5);
-
   const sortedProductDataCheap = [...productData]
+    .sort((a, b) => a.price - b.price)
+    .slice(0, 5); //only 5 products
+
+  const sortedProductDataExpensive = [...productData]
     .sort((a, b) => b.price - a.price)
-    .slice(0.5);
+    .slice(0, 5); //only 5 products
 
   const maxPriceCheap = Math.max(
     ...sortedProductDataCheap.map((item) => item.price),
+    0
+  );
+  const maxPriceExpensive = Math.max(
+    ...sortedProductDataExpensive.map((item) => item.price),
     0
   );
 
@@ -104,8 +110,6 @@ const StatisticsView = () => {
         <div className={styles.chartWrapper}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={sortedProductDataCheap}>
-              {' '}
-              {/*this one */}
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey={'name'} />
               <YAxis domain={[0, maxPriceCheap + 2]} />
@@ -138,7 +142,7 @@ const StatisticsView = () => {
                   />
                 ))}
               </Pie>
-              {/* <Tooltip /> */}
+              <Tooltip />
             </PieChart>
           </ResponsiveContainer>
         </div>

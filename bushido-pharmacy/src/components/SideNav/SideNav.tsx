@@ -48,16 +48,16 @@ const SideNav = ({
             Products
           </li>
           <li
-            onClick={activateAboutApp}
-            className={aboutAppView ? styles.listItemActive : styles.listItem}
-          >
-            About App
-          </li>
-          <li
             onClick={activateStats}
             className={statsView ? styles.listItemActive : styles.listItem}
           >
             Statistics
+          </li>
+          <li
+            onClick={activateAboutApp}
+            className={aboutAppView ? styles.listItemActive : styles.listItem}
+          >
+            About App
           </li>
         </ul>
       </div>

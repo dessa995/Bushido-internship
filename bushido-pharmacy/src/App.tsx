@@ -52,6 +52,20 @@ export const productDataAtom = atomWithStorage('products', [
     price: 7,
     expiryDate: new Date(2022, 0, 31),
   },
+  {
+    id: uuidv4(),
+    name: 'brufen',
+    manufacturerDataId: '3',
+    price: 21,
+    expiryDate: new Date(2026, 0, 31),
+  },
+  {
+    id: uuidv4(),
+    name: 'analgin',
+    manufacturerDataId: '99999',
+    price: 13,
+    expiryDate: new Date(2027, 4, 9),
+  },
 ]);
 
 const App: React.FC = () => {
