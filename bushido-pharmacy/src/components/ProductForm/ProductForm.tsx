@@ -23,8 +23,6 @@ const ProductForm = () => {
   const [manufacturerError, setManufacturerError] = useState(false);
   const [priceError, setPriceError] = useState(false);
 
-  console.log(productToEdit.manufacturerDataId);
-
   const handleNameChange = (e: any) => {
     e.preventDefault();
     if (productToEdit.id.length) {
