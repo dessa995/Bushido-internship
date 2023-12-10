@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   manufacturersDataAtom,
@@ -22,6 +22,8 @@ const ProductForm = () => {
   const [nameError, setNameError] = useState(false);
   const [manufacturerError, setManufacturerError] = useState(false);
   const [priceError, setPriceError] = useState(false);
+
+  console.log(productToEdit.manufacturerDataId);
 
   const handleNameChange = (e: any) => {
     e.preventDefault();
@@ -105,6 +107,20 @@ const ProductForm = () => {
 
     return nameError === '' && manufacturerError === '' && priceError === '';
   };
+
+  useEffect(() => {
+    const manufacturerSelect = document.getElementById(
+      'manufacturer'
+    ) as HTMLSelectElement;
+
+    if (manufacturerSelect) {
+      if (productToEdit?.manufacturerDataId) {
+        manufacturerSelect.value = productToEdit.manufacturerDataId;
+      } else {
+        manufacturerSelect.value = 'disabled';
+      }
+    }
+  }, [productToEdit?.manufacturerDataId]);
 
   return (
     <React.Fragment>

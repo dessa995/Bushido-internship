@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './components/pages/HomePage/HomePage';
 import EditProductPage from './components/pages/EditProduct/EditProductPage';
@@ -108,8 +108,6 @@ export const productDataAtom = atomWithStorage('products', [
 ]);
 
 const App: React.FC = () => {
-  const [productToEdit, setProductToEdit] = useState(null);
-
   return (
     <BrowserRouter>
       <Routes>
