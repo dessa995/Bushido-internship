@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './components/pages/HomePage/HomePage';
 import EditProductPage from './components/pages/EditProduct/EditProductPage';
@@ -7,9 +7,13 @@ import { atomWithStorage } from 'jotai/utils';
 import { v4 as uuidv4 } from 'uuid';
 import NotFound from './components/pages/NotFound/NotFound';
 
-// import { IManufacturer, IProduct } from './services/interfaces';
-
-export const DataContext = React.createContext<any | undefined>(undefined);
+export const productToEditAtom = atomWithStorage('productToEdit', {
+  id: '',
+  name: '',
+  manufacturerDataId: '',
+  price: 0,
+  expiryDate: new Date(),
+});
 
 export const manufacturersDataAtom = atomWithStorage('manufacturers', [
   {
@@ -66,27 +70,55 @@ export const productDataAtom = atomWithStorage('products', [
     price: 13,
     expiryDate: new Date(2027, 4, 9),
   },
+  {
+    id: uuidv4(),
+    name: 'xizal',
+    manufacturerDataId: '1',
+    price: 6,
+    expiryDate: new Date(2024, 4, 9),
+  },
+  {
+    id: uuidv4(),
+    name: 'tylol hot',
+    manufacturerDataId: '2',
+    price: 21,
+    expiryDate: new Date(2026, 4, 9),
+  },
+  {
+    id: uuidv4(),
+    name: 'paracetamol',
+    manufacturerDataId: '99999',
+    price: 3,
+    expiryDate: new Date(2026, 4, 9),
+  },
+  {
+    id: uuidv4(),
+    name: 'nixar',
+    manufacturerDataId: '3',
+    price: 7,
+    expiryDate: new Date(2027, 11, 9),
+  },
+  {
+    id: uuidv4(),
+    name: 'duobiotic',
+    manufacturerDataId: '1',
+    price: 2,
+    expiryDate: new Date(2027, 4, 9),
+  },
 ]);
 
 const App: React.FC = () => {
   const [productToEdit, setProductToEdit] = useState(null);
 
   return (
-    <DataContext.Provider
-      value={{
-        productToEdit,
-        setProductToEdit,
-      }}
-    >
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/edit" element={<EditProductPage />} />
-          <Route path="/newProduct" element={<NewProductPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </DataContext.Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/edit" element={<EditProductPage />} />
+        <Route path="/newProduct" element={<NewProductPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

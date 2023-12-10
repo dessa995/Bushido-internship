@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { productDataAtom, manufacturersDataAtom } from '../../App';
+import React from 'react';
+import { productDataAtom } from '../../App';
 import { useAtom } from 'jotai';
 
 import {
@@ -14,7 +14,7 @@ import {
   ResponsiveContainer,
   PieChart,
   Pie,
-  Cell, // Import ResponsiveContainer
+  Cell,
 } from 'recharts';
 
 import styles from './StatisticsView.module.css';
@@ -65,25 +65,28 @@ const StatisticsView = () => {
         ).value += 1;
       }
     });
-
-    console.log(manufacturerData);
   }
 
   manufacturerCounter();
 
   const sortedProductDataCheap = [...productData]
     .sort((a, b) => a.price - b.price)
-    .slice(0, 5); //only 5 products
+    .slice(0, 5);
 
   const sortedProductDataExpensive = [...productData]
     .sort((a, b) => b.price - a.price)
-    .slice(0, 5); //only 5 products
+    .slice(0, 5);
 
   const maxPriceCheap = Math.max(
     ...sortedProductDataCheap.map((item) => item.price),
     0
   );
   const maxPriceExpensive = Math.max(
+    ...sortedProductDataExpensive.map((item) => item.price),
+    0
+  );
+
+  const minPriceExpensive = Math.min(
     ...sortedProductDataExpensive.map((item) => item.price),
     0
   );
@@ -96,7 +99,7 @@ const StatisticsView = () => {
             <BarChart data={sortedProductDataExpensive}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey={'name'} />
-              <YAxis />
+              <YAxis domain={[minPriceExpensive, maxPriceExpensive + 2]} />
               <Tooltip />
               <Legend />
               <Bar

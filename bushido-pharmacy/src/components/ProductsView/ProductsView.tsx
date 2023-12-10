@@ -1,24 +1,33 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 
 import styles from './ProductView.module.css';
 import { IProduct } from '../../services/interfaces';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataContext, productDataAtom, manufacturersDataAtom } from '../../App';
-import { useAtom } from 'jotai';
+import {
+  productDataAtom,
+  manufacturersDataAtom,
+  productToEditAtom,
+} from '../../App';
+import { useAtom, useSetAtom } from 'jotai';
 
 import { format } from 'date-fns';
+import { RESET } from 'jotai/utils';
 
 const ProductsView = () => {
-  const { setProductToEdit } = useContext(DataContext);
+  const setProductToEditAtom = useSetAtom(productToEditAtom);
 
   const [productsData, setProductsData] = useAtom(productDataAtom);
   const [manufacturersData] = useAtom(manufacturersDataAtom);
 
   const navigate = useNavigate();
-  console.log('Products data', productsData);
+
+  const handleAddNewClick = () => {
+    setProductToEditAtom(RESET);
+    navigate('/newProduct');
+  };
 
   const handleEditClick = (product: IProduct) => {
-    setProductToEdit(product);
+    setProductToEditAtom(product);
     navigate('/edit');
   };
 
@@ -27,7 +36,6 @@ const ProductsView = () => {
       (product: IProduct) => product.id !== productToDelete.id
     );
 
-    // Now newArray contains the filtered array
     console.log(newArray);
     setProductsData(newArray);
   };
@@ -35,13 +43,11 @@ const ProductsView = () => {
   return (
     <React.Fragment>
       <div className={styles.listWrapper}>
-        <Link to="/newProduct" className={styles.addNewProductBtn}>
+        <button onClick={handleAddNewClick} className={styles.addNewProductBtn}>
           Add New Product
-        </Link>
+        </button>
         <ul>
           {productsData.map((product: any, index: any) => {
-            // console.log(product, ' newProduct');
-
             return (
               <li
                 key={product.id}

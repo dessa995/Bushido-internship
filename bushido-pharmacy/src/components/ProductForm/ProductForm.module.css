@@ -1,0 +1,87 @@
+.form {
+  @apply flex flex-col w-[60%] mx-auto p-5 rounded-xl border-2 border-cyan-400 items-center;
+}
+
+.inputWrapper {
+  @apply flex gap-2 my-6 relative;
+}
+
+.label {
+  @apply flex text-2xl items-center;
+}
+
+.textInput {
+  @apply text-2xl rounded-xl border-2 border-cyan-400 p-2 outline-none;
+}
+
+.textInputError {
+  @apply text-2xl rounded-xl border-2 border-red-600 p-2 outline-none;
+}
+
+.selectWrapper {
+  @apply flex relative justify-center items-center my-2 w-[95%];
+}
+
+.select {
+  @apply w-full text-center text-2xl border-2 border-cyan-400 rounded-xl py-2 px-4;
+}
+
+.selectError {
+  @apply w-full text-center text-2xl border-2 border-red-600 rounded-xl py-2 px-4;
+}
+
+.numberInput {
+  @apply text-2xl rounded-xl border-2 border-cyan-400 p-2 outline-none text-center;
+}
+
+.numberInputError {
+  @apply text-2xl rounded-xl border-2 border-red-600 p-2 outline-none text-center;
+}
+
+.currency {
+  @apply flex text-4xl items-center text-amber-600;
+}
+
+.dateInput {
+  @apply text-xl p-2 outline-none;
+}
+
+.submitBtn {
+  @apply w-[30%] bg-cyan-600 border-2 border-transparent text-white text-xl py-2 rounded-xl transition-all duration-300;
+}
+
+.submitBtn:hover {
+  @apply bg-transparent text-gray-600 border-cyan-400;
+}
+
+.errorMsg {
+  @apply absolute -top-[3.5vh] flex justify-center items-center text-red-600 text-center font-thin;
+}
+
+/*-------------------------------------------------------------------------
+---------------------------RESPONSIVE--------------------------------------
+---------------------------------------------------------------------------*/
+
+@media screen and (max-width: 805px) {
+  .inputWrapper {
+    @apply flex-col w-[95%] items-center;
+  }
+
+  .textInput {
+    @apply w-full text-lg;
+  }
+
+  .select {
+    @apply text-lg;
+  }
+
+  .numberInput {
+    @apply w-full text-lg;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .select {
+    @apply text-sm;
+  }
+}
