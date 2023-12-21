@@ -28,7 +28,6 @@ const ProductCard = ({ product }: { product: IProduct }) => {
       (product: IProduct) => product.id !== productToDelete.id
     );
 
-    console.log(newArray);
     setProductsData(newArray);
   };
   return (
