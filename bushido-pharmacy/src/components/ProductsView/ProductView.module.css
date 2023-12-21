@@ -1,5 +1,5 @@
 .listWrapper {
-  @apply flex flex-col justify-center w-[70%] p-20 text-xl border-2 border-cyan-400 rounded-xl;
+  @apply flex flex-col relative justify-center w-[70%] p-20 text-xl border-2 border-cyan-400 rounded-xl;
 }
 
 .productListItem {

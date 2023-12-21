@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   manufacturersDataAtom,
@@ -23,9 +23,9 @@ const ProductForm = () => {
   const [manufacturerError, setManufacturerError] = useState(false);
   const [priceError, setPriceError] = useState(false);
 
-  const handleNameChange = (e: any) => {
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (productToEdit.id.length) {
+    if (productToEdit && productToEdit.id.length) {
       setProductToEdit((prevProduct: IProduct) => ({
         ...prevProduct,
         name: e.target.value,
@@ -54,15 +54,15 @@ const ProductForm = () => {
     }
   };
 
-  const handlePriceChange = (e: any) => {
+  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setProductToEdit((prevProduct: IProduct) => ({
       ...prevProduct,
-      price: e.target.value,
+      price: parseFloat(e.target.value) || 0,
     }));
   };
 
-  const handleDateChange = (e: any) => {
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setProductToEdit((prevProduct: IProduct) => ({
       ...prevProduct,
@@ -70,7 +70,7 @@ const ProductForm = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newProducts = productsData.filter(
       (product: IProduct) => product.id !== productToEdit.id
@@ -184,7 +184,7 @@ const ProductForm = () => {
               id="price"
               min={0}
               value={productToEdit?.price}
-              onChange={handlePriceChange}
+              onChange={handlePriceChange} //here
             />
             <span className={styles.currency}>&#x20AC;</span>
             {priceError && (

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from './HomePage.module.css';
-import SideNav from '../../SideNav/SideNav';
+import SideNav from '../../components/SideNav/SideNav';
 
-import ProductsView from '../../ProductsView/ProductsView';
-import AboutApp from '../../AboutApp/AboutApp';
-import StatisticsView from '../../Statistics/StatisticsView';
+import ProductsView from '../../components/ProductsView/ProductsView';
+import AboutApp from '../../components/AboutApp/AboutApp';
+import StatisticsView from '../../components/Statistics/StatisticsView';
 
 const HomePage = () => {
   const [productsView, setProductsView] = useState(true);

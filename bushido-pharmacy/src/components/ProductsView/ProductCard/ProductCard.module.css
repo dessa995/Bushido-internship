@@ -26,6 +26,18 @@
   @apply border-red-500 text-gray-600 bg-transparent;
 }
 
+.deletePopUp {
+  @apply hidden;
+}
+
+.deletePopUpActive {
+  @apply fixed flex flex-col items-center justify-center gap-4 w-[40vw] h-[30vh] top-[35vh] left-[40%] p-5 rounded-xl border-2 border-cyan-400 bg-white;
+}
+
+.popUpBtnWrapper {
+  @apply flex gap-4;
+}
+
 /*-------------------------------------------------------------------------
 ---------------------------RESPONSIVE--------------------------------------
 ---------------------------------------------------------------------------*/

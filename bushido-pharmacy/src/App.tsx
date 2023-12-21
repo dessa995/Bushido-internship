@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from './components/pages/HomePage/HomePage';
-import EditProductPage from './components/pages/EditProduct/EditProductPage';
-import NewProductPage from './components/pages/NewProduct/NewProductPage';
+import HomePage from './pages/HomePage/HomePage';
+import EditProductPage from './pages/EditProduct/EditProductPage';
+import NewProductPage from './pages/NewProduct/NewProductPage';
+import NotFound from './pages/NotFound/NotFound';
 import { atomWithStorage } from 'jotai/utils';
 import { v4 as uuidv4 } from 'uuid';
-import NotFound from './components/pages/NotFound/NotFound';
 
 export const productToEditAtom = atomWithStorage('productToEdit', {
   id: '',

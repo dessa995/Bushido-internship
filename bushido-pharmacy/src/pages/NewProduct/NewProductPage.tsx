@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProductForm from '../../ProductForm/ProductForm';
+import ProductForm from '../../components/ProductForm/ProductForm';
 
 const NewProductPage = () => {
   return (

@@ -24,7 +24,7 @@ const StatisticsView = () => {
 
   const COLORS = ['#FF8042', '#0088FE', '#00C49F', '#000'];
 
-  const manufacturerData = [
+  const manufacturerData: { name: string; value: number }[] = [
     {
       name: 'Hemofarm',
       value: 0,
@@ -46,23 +46,19 @@ const StatisticsView = () => {
   function manufacturerCounter() {
     productData.forEach((product) => {
       if (product.manufacturerDataId === '1') {
-        (
-          manufacturerData.find((manu) => manu.name === 'Hemofarm') as any
-        ).value += 1;
+        manufacturerData.find((manu) => manu.name === 'Hemofarm')!.value += 1;
       } else if (product.manufacturerDataId === '2') {
-        (
-          manufacturerData.find((manu) => manu.name === 'Bayer Bayer') as any
-        ).value += 1;
+        manufacturerData.find(
+          (manu) => manu.name === 'Bayer Bayer'
+        )!.value += 1;
       } else if (product.manufacturerDataId === '3') {
-        (
-          manufacturerData.find(
-            (manu) => manu.name === 'Ivancic i Sinovi'
-          ) as any
-        ).value += 1;
+        manufacturerData.find(
+          (manu) => manu.name === 'Ivancic i Sinovi'
+        )!.value += 1;
       } else {
-        (
-          manufacturerData.find((manu) => manu.name === 'Not in system') as any
-        ).value += 1;
+        manufacturerData.find(
+          (manu) => manu.name === 'Not in system'
+        )!.value += 1;
       }
     });
   }

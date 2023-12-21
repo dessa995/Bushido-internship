@@ -1,0 +1,25 @@
+Nema readme.md sa instrukcijama kako pokrenuti projekat i kako funkcioniše. URADJENO
+Unused imports src/components/pages/NewProduct/NewProductPage.tsx URADJENO
+Ostao console.log prilikom brisanja proizvoda. URADJENO
+Unused variables in src/components/ProductsView/ProductsView.tsx URADJENO
+pages folder treba da je van “components” foldera URADJENO
+
+Umjesto jedne HomePage stranice sa nekoliko “views”, potrebno je razdvojiti to na odvojene rute, /products, /statistics, /about
+
+Edit page treba da ima odvojen URL po Id-u koji se edituje "http://localhost:8080/edit/4".
+
+Trebalo bi postaviti routing, tako da kad se klikne na statistiku to se odrazi na URL-u.
+
+Nisam siguran da bi about trebalo da bude komponenta a ne page.
+
+Linting errors in src/components/SideNav/SideNav.tsx URADJENO SKORO
+
+Persist products in a service. “If you want you can populate the service with some initial product data.” stoji u zadatku,
+medjutim sva logika za storage se nalazi u App.tsx. Bilo je potrebno napraviti service kao interfejs,
+a onda implementirati jednu od njih, koja stavlja podatke recimo u Local Storage.
+
+
+
+Nice to have sa dizajn strane jeste prompt prije brisanja proizvoda u smislu "da li ste sigurni". URADJENO
+Nice to have bi bilo promjeniti meta nazive stranica, jer je ostalo "React Typescript Template". 
+

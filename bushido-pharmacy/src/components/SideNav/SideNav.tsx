@@ -4,11 +4,11 @@ import styles from './SideNav.module.css';
 
 type SideNavProps = {
   productsView: boolean;
-  setProductsView: any;
+  setProductsView: React.Dispatch<React.SetStateAction<boolean>>;
   aboutAppView: boolean;
-  setAboutAppView: any;
+  setAboutAppView: React.Dispatch<React.SetStateAction<boolean>>;
   statsView: boolean;
-  setStatsView: any;
+  setStatsView: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const SideNav = ({
@@ -41,6 +41,7 @@ const SideNav = ({
     <React.Fragment>
       <div className="relative w-[25%]">
         <ul className={styles.optionsList}>
+          {/* add link elements after fixing routes */}
           <li
             onClick={activateProducts}
             className={productsView ? styles.listItemActive : styles.listItem}
