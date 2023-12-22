@@ -55,18 +55,20 @@ const ProductForm = ({ id }: productFormProps) => {
     }
   };
 
-  const handleManufacturerChange = (e: any) => {
+  const handleManufacturerChange = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
 
     const index = e.target.selectedIndex;
-    const el = e.target.childNodes[index];
+    const el = e.target.childNodes[index] as HTMLElement;
     const option = el.getAttribute('id');
 
     if (option !== productToEdit?.manufacturerDataId) {
-      setProductToEdit((prevProduct: IProduct) => ({
-        ...prevProduct,
-        manufacturerDataId: option,
-      }));
+      setProductToEdit((prevProduct: IProduct) => {
+        return {
+          ...prevProduct,
+          manufacturerDataId: option,
+        } as IProduct;
+      });
     }
   };
 
