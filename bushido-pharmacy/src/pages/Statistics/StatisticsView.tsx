@@ -18,35 +18,32 @@ import {
 } from 'recharts';
 
 import styles from './StatisticsView.module.css';
+import { useSetDocumentTitle } from '../../hooks/useSetDocumentTitle';
 
 const StatisticsView = () => {
-  useEffect(() => {
-    // Set the title when the component mounts
-    document.title = 'Statistics';
-
-    // Optionally, you can reset the title when the component unmounts
-    return () => {
-      document.title = 'Pharmacy App';
-    };
-  }, []);
+  useSetDocumentTitle('Statistics');
   const [productData] = useAtom(productDataAtom);
 
   const COLORS = ['#FF8042', '#0088FE', '#00C49F', '#000'];
 
-  const manufacturerData: { name: string; value: number }[] = [
+  const manufacturerData: { id: string; name: string; value: number }[] = [
     {
+      id: '1',
       name: 'Hemofarm',
       value: 0,
     },
     {
+      id: '2',
       name: 'Bayer Bayer',
       value: 0,
     },
     {
+      id: '3',
       name: 'Ivancic i Sinovi',
       value: 0,
     },
     {
+      id: '99999',
       name: 'Not in system',
       value: 0,
     },
@@ -54,20 +51,11 @@ const StatisticsView = () => {
 
   function manufacturerCounter() {
     productData.forEach((product) => {
-      if (product.manufacturerDataId === '1') {
-        manufacturerData.find((manu) => manu.name === 'Hemofarm')!.value += 1;
-      } else if (product.manufacturerDataId === '2') {
-        manufacturerData.find(
-          (manu) => manu.name === 'Bayer Bayer'
-        )!.value += 1;
-      } else if (product.manufacturerDataId === '3') {
-        manufacturerData.find(
-          (manu) => manu.name === 'Ivancic i Sinovi'
-        )!.value += 1;
-      } else {
-        manufacturerData.find(
-          (manu) => manu.name === 'Not in system'
-        )!.value += 1;
+      const manufacturer = manufacturerData.find(
+        (manufacturer) => manufacturer.id === product.manufacturerDataId
+      );
+      if (manufacturer) {
+        manufacturer!.value += 1;
       }
     });
   }
