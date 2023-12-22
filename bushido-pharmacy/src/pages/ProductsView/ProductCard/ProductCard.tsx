@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {
   manufacturersDataAtom,
   productDataAtom,
-  productToEditAtom,
+  // productToEditAtom,
 } from '../../../App';
 import { IProduct } from '../../../services/interfaces';
 
@@ -14,15 +14,15 @@ import { format } from 'date-fns';
 const ProductCard = ({ product }: { product: IProduct }) => {
   const [productsData, setProductsData] = useAtom(productDataAtom);
   const [manufacturersData] = useAtom(manufacturersDataAtom);
-  const setProductToEditAtom = useSetAtom(productToEditAtom);
+  // const setProductToEditAtom = useSetAtom(productToEditAtom);
 
   const [popUpActive, setPopUpActive] = useState(false);
 
   const navigate = useNavigate();
 
   const handleEditClick = (product: IProduct) => {
-    setProductToEditAtom(product);
-    navigate('/edit');
+    // setProductToEditAtom(product);
+    navigate(`/edit/${product.id}`);
   };
 
   const handlePreDelete = () => {

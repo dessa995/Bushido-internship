@@ -1,19 +1,20 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  manufacturersDataAtom,
-  productDataAtom,
-  productToEditAtom,
-} from '../../App';
+import { manufacturersDataAtom, productDataAtom } from '../../App';
 import { IProduct } from '../../services/interfaces';
 import { useAtom } from 'jotai';
 
 import styles from './ProductForm.module.css';
-import { RESET } from 'jotai/utils';
 import { v4 as uuidv4 } from 'uuid';
 
-const ProductForm = () => {
-  const [productToEdit, setProductToEdit] = useAtom(productToEditAtom);
+const ProductForm = ({ id }: any) => {
+  const [productToEdit, setProductToEdit] = useState<IProduct>({
+    id: '',
+    name: '',
+    manufacturerDataId: '',
+    price: 0,
+    expiryDate: new Date(),
+  });
   const [productsData, setProductsData] = useAtom(productDataAtom);
   const [manufacturersData] = useAtom(manufacturersDataAtom);
 
@@ -22,6 +23,16 @@ const ProductForm = () => {
   const [nameError, setNameError] = useState(false);
   const [manufacturerError, setManufacturerError] = useState(false);
   const [priceError, setPriceError] = useState(false);
+
+  if (id) {
+    useEffect(() => {
+      const product = productsData.find((product) => product.id === id);
+
+      if (product) {
+        setProductToEdit(product);
+      }
+    }, [id, productsData]);
+  }
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -64,9 +75,13 @@ const ProductForm = () => {
 
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+
+    const dateValue = e.target.value;
+    const [year, month, day] = dateValue.split('-');
+
     setProductToEdit((prevProduct: IProduct) => ({
       ...prevProduct,
-      expiryDate: new Date(e.target.value),
+      expiryDate: new Date(`${month}/${day}/${year}`),
     }));
   };
 
@@ -80,7 +95,13 @@ const ProductForm = () => {
 
     if (isFormValid) {
       setProductsData([...newProducts, productToEdit]);
-      setProductToEdit(RESET);
+      setProductToEdit({
+        id: '',
+        name: '',
+        manufacturerDataId: '',
+        price: 0,
+        expiryDate: new Date(),
+      });
       navigate('/');
     }
   };
@@ -184,7 +205,7 @@ const ProductForm = () => {
               id="price"
               min={0}
               value={productToEdit?.price}
-              onChange={handlePriceChange} //here
+              onChange={handlePriceChange}
             />
             <span className={styles.currency}>&#x20AC;</span>
             {priceError && (

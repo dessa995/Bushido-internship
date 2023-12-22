@@ -3,21 +3,17 @@ import React from 'react';
 import styles from './ProductView.module.css';
 import { IProduct } from '../../services/interfaces';
 import { useNavigate } from 'react-router-dom';
-import { productDataAtom, productToEditAtom } from '../../App';
-import { useAtom, useSetAtom } from 'jotai';
+import { productDataAtom } from '../../App';
+import { useAtom } from 'jotai';
 
-import { RESET } from 'jotai/utils';
 import ProductCard from './ProductCard/ProductCard';
 
 const ProductsView = () => {
-  const setProductToEditAtom = useSetAtom(productToEditAtom);
-
   const [productsData] = useAtom(productDataAtom);
 
   const navigate = useNavigate();
 
   const handleAddNewClick = () => {
-    setProductToEditAtom(RESET);
     navigate('/newProduct');
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import EditProductPage from './pages/EditProduct/EditProductPage';
@@ -6,14 +6,18 @@ import NewProductPage from './pages/NewProduct/NewProductPage';
 import NotFound from './pages/NotFound/NotFound';
 import { atomWithStorage } from 'jotai/utils';
 import { v4 as uuidv4 } from 'uuid';
+import ProductsView from './pages/ProductsView/ProductsView';
+import StatisticsView from './pages/Statistics/StatisticsView';
+import AboutApp from './pages/AboutApp/AboutApp';
+import SideNav from './components/SideNav/SideNav';
 
-export const productToEditAtom = atomWithStorage('productToEdit', {
-  id: '',
-  name: '',
-  manufacturerDataId: '',
-  price: 0,
-  expiryDate: new Date(),
-});
+// export const productToEditAtom = atomWithStorage('productToEdit', {
+//   id: '',
+//   name: '',
+//   manufacturerDataId: '',
+//   price: 0,
+//   expiryDate: new Date(),
+// });
 
 export const manufacturersDataAtom = atomWithStorage('manufacturers', [
   {
@@ -108,14 +112,31 @@ export const productDataAtom = atomWithStorage('products', [
 ]);
 
 const App: React.FC = () => {
+  const [productsView, setProductsView] = useState(true);
+  const [aboutAppView, setAboutAppView] = useState(false);
+  const [statsView, setStatsView] = useState(false);
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/edit" element={<EditProductPage />} />
-        <Route path="/newProduct" element={<NewProductPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div className="flex justify-end px-16 p-5">
+        <SideNav
+          productsView={productsView}
+          setProductsView={setProductsView}
+          aboutAppView={aboutAppView}
+          setAboutAppView={setAboutAppView}
+          statsView={statsView}
+          setStatsView={setStatsView}
+        />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsView />} />
+          <Route path="/statistics" element={<StatisticsView />} />
+          <Route path="/about" element={<AboutApp />} />
+          <Route path="/edit/:productId" element={<EditProductPage />} />
+          <Route path="/newProduct" element={<NewProductPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 };

@@ -3,14 +3,10 @@ Unused imports src/components/pages/NewProduct/NewProductPage.tsx URADJENO
 Ostao console.log prilikom brisanja proizvoda. URADJENO
 Unused variables in src/components/ProductsView/ProductsView.tsx URADJENO
 pages folder treba da je van “components” foldera URADJENO
-
-Umjesto jedne HomePage stranice sa nekoliko “views”, potrebno je razdvojiti to na odvojene rute, /products, /statistics, /about
-
-Edit page treba da ima odvojen URL po Id-u koji se edituje "http://localhost:8080/edit/4".
-
-Trebalo bi postaviti routing, tako da kad se klikne na statistiku to se odrazi na URL-u.
-
-Nisam siguran da bi about trebalo da bude komponenta a ne page.
+Umjesto jedne HomePage stranice sa nekoliko “views”, potrebno je razdvojiti to na odvojene rute, /products, /statistics, /about URADJENO
+Edit page treba da ima odvojen URL po Id-u koji se edituje "http://localhost:8080/edit/4". URADJENO
+Trebalo bi postaviti routing, tako da kad se klikne na statistiku to se odrazi na URL-u. URADJENO
+Nisam siguran da bi about trebalo da bude komponenta a ne page. URADJENO
 
 Linting errors in src/components/SideNav/SideNav.tsx URADJENO SKORO
 
