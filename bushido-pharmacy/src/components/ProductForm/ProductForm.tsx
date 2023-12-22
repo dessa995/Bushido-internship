@@ -1,13 +1,20 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { manufacturersDataAtom, productDataAtom } from '../../App';
+import {
+  manufacturersDataAtom,
+  productDataAtom,
+} from '../../services/InitialData';
 import { IProduct } from '../../services/interfaces';
 import { useAtom } from 'jotai';
 
 import styles from './ProductForm.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
-const ProductForm = ({ id }: any) => {
+type productFormProps = {
+  id: string | undefined;
+};
+
+const ProductForm = ({ id }: productFormProps) => {
   const [productToEdit, setProductToEdit] = useState<IProduct>({
     id: '',
     name: '',
@@ -24,15 +31,13 @@ const ProductForm = ({ id }: any) => {
   const [manufacturerError, setManufacturerError] = useState(false);
   const [priceError, setPriceError] = useState(false);
 
-  if (id) {
-    useEffect(() => {
-      const product = productsData.find((product) => product.id === id);
+  useEffect(() => {
+    const product = productsData.find((product) => product.id === id);
 
-      if (product) {
-        setProductToEdit(product);
-      }
-    }, [id, productsData]);
-  }
+    if (product) {
+      setProductToEdit(product);
+    }
+  }, [id, productsData]);
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -106,6 +111,18 @@ const ProductForm = ({ id }: any) => {
     }
   };
 
+  const handleCancel = () => {
+    // e.preventDefault();
+    setProductToEdit({
+      id: '',
+      name: '',
+      manufacturerDataId: '',
+      price: 0,
+      expiryDate: new Date(),
+    });
+    navigate('/');
+  };
+
   const validateForm = () => {
     const nameError =
       productToEdit.name.trim() === '' ? 'Name is required' : '';
@@ -119,7 +136,10 @@ const ProductForm = ({ id }: any) => {
     if (manufacturerError.length > 0) {
       setManufacturerError(true);
     }
-    const priceError = productToEdit.price <= 0 ? 'Invalid price' : '';
+    const priceError =
+      productToEdit.price === undefined || productToEdit.price <= 0
+        ? 'Invalid price'
+        : '';
     if (priceError.length > 0) {
       setPriceError(true);
     }
@@ -204,7 +224,9 @@ const ProductForm = ({ id }: any) => {
               name="price"
               id="price"
               min={0}
-              value={productToEdit?.price}
+              value={
+                productToEdit?.price !== undefined ? productToEdit?.price : ''
+              }
               onChange={handlePriceChange}
             />
             <span className={styles.currency}>&#x20AC;</span>
@@ -215,6 +237,9 @@ const ProductForm = ({ id }: any) => {
             )}
           </div>
           <div className={styles.inputWrapper}>
+            <label htmlFor="expiryDate" className={styles.label}>
+              Expiry Date
+            </label>
             <input
               className={styles.dateInput}
               type="date"
@@ -226,9 +251,14 @@ const ProductForm = ({ id }: any) => {
               onChange={handleDateChange}
             />
           </div>
-          <button className={styles.submitBtn} type="submit">
-            Submit
-          </button>
+          <div className={styles.buttonsWrapper}>
+            <button className={styles.submitBtn} type="submit">
+              Submit
+            </button>
+            <button className={styles.cancelButton} onClick={handleCancel}>
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </React.Fragment>

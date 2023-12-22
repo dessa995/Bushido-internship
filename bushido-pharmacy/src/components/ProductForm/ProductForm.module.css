@@ -46,12 +46,24 @@
   @apply text-xl p-2 outline-none;
 }
 
+.buttonsWrapper {
+  @apply flex gap-4 w-full justify-center;
+}
+
 .submitBtn {
   @apply w-[30%] bg-cyan-600 border-2 border-transparent text-white text-xl py-2 rounded-xl transition-all duration-300;
 }
 
 .submitBtn:hover {
   @apply bg-transparent text-gray-600 border-cyan-400;
+}
+
+.cancelButton {
+  @apply w-[30%] bg-red-600 border-2 border-transparent text-white text-xl py-2 rounded-xl transition-all duration-300;
+}
+
+.cancelButton:hover {
+  @apply bg-transparent text-gray-600 border-red-600;
 }
 
 .errorMsg {
@@ -61,8 +73,17 @@
 /*-------------------------------------------------------------------------
 ---------------------------RESPONSIVE--------------------------------------
 ---------------------------------------------------------------------------*/
+@media screen and (max-width: 980px) {
+  .form {
+    @apply w-[80%];
+  }
+}
 
-@media screen and (max-width: 805px) {
+@media screen and (max-width: 815px) {
+  /* .form {
+    @apply w-[60%];
+  } */
+
   .inputWrapper {
     @apply flex-col w-[95%] items-center;
   }

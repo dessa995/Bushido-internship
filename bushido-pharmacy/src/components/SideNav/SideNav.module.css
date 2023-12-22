@@ -22,11 +22,13 @@
 ---------------------------RESPONSIVE--------------------------------------
 ---------------------------------------------------------------------------*/
 
-@media screen and (max-width: 805px) {
+@media screen and (max-width: 1025px) {
   .optionsList {
-    @apply w-[25%];
+    @apply min-h-0 w-[60%] mx-auto left-[20%] flex-row bg-white z-10 shadow-[0_-50px_45px_-10px_rgb(255,255,255)];
   }
+}
 
+@media screen and (max-width: 805px) {
   .listItem {
     @apply text-lg;
   }

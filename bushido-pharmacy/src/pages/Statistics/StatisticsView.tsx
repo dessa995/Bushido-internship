@@ -1,5 +1,5 @@
-import React from 'react';
-import { productDataAtom } from '../../App';
+import React, { useEffect } from 'react';
+import { productDataAtom } from '../../services/InitialData';
 import { useAtom } from 'jotai';
 
 import {
@@ -20,6 +20,15 @@ import {
 import styles from './StatisticsView.module.css';
 
 const StatisticsView = () => {
+  useEffect(() => {
+    // Set the title when the component mounts
+    document.title = 'Statistics';
+
+    // Optionally, you can reset the title when the component unmounts
+    return () => {
+      document.title = 'Pharmacy App';
+    };
+  }, []);
   const [productData] = useAtom(productDataAtom);
 
   const COLORS = ['#FF8042', '#0088FE', '#00C49F', '#000'];

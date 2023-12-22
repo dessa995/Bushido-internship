@@ -10,6 +10,12 @@
   @apply text-gray-600 text-xl;
 }
 
+@media screen and (max-width: 1025px) {
+  .aboutWrapper {
+    @apply mx-auto mt-[18vh];
+  }
+}
+
 @media screen and (max-width: 805px) {
   .aboutWrapper {
     @apply px-5;

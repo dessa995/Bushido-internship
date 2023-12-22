@@ -1,11 +1,10 @@
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import React, { useState } from 'react';
 import {
   manufacturersDataAtom,
   productDataAtom,
-  // productToEditAtom,
-} from '../../../App';
-import { IProduct } from '../../../services/interfaces';
+} from '../../services/InitialData';
+import { IProduct } from '../../services/interfaces';
 
 import styles from './ProductCard.module.css';
 import { useNavigate } from 'react-router-dom';

@@ -3,10 +3,10 @@ import React from 'react';
 import styles from './ProductView.module.css';
 import { IProduct } from '../../services/interfaces';
 import { useNavigate } from 'react-router-dom';
-import { productDataAtom } from '../../App';
+import { productDataAtom } from '../../services/InitialData';
 import { useAtom } from 'jotai';
 
-import ProductCard from './ProductCard/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard';
 
 const ProductsView = () => {
   const [productsData] = useAtom(productDataAtom);

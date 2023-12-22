@@ -2,6 +2,12 @@
   @apply flex flex-col gap-4 justify-center items-center w-[70%] min-h-[95vh] p-20 text-xl border-2 border-cyan-400 rounded-xl;
 }
 
+@media screen and (max-width: 1025px) {
+  .chartsWrapper {
+    @apply mx-auto mt-[18vh];
+  }
+}
+
 @media screen and (max-width: 805px) {
   .chartsWrapper {
     @apply p-5;

@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './NotFound.module.css';
 
 const NotFound = () => {
+  useEffect(() => {
+    // Set the title when the component mounts
+    document.title = 'Page Not Found';
+
+    // Optionally, you can reset the title when the component unmounts
+    return () => {
+      document.title = 'Pharmacy App';
+    };
+  }, []);
   return (
     <div className={styles.contentWrapper}>
       <div className={styles.contentBox}>
